@@ -20,25 +20,11 @@ function Write-Log {
 }
 #endregion
 
-#region Foxit Reader
-try {
-    Start-Process -filepath msiexec.exe -Wait -ErrorAction Stop -ArgumentList '/i', 'c:\temp\FoxitReader101_enu_Setup.msi', '/quiet', 'ADDLOCAL="FX_PDFVIEWER"'
-    if (Test-Path "C:\Program Files (x86)\Foxit Software\Foxit Reader\FoxitReader.exe") {
-        Write-Log "Foxit Reader has been installed"
-    }
-    else {
-        write-log "Error locating the Foxit Reader executable"
-    }
-}
-catch {
-    $ErrorMessage = $_.Exception.message
-    write-log "Error installing Foxit Reader: $ErrorMessage"
-}
-#endregion
+
 
 #region Notepad++
 try {
-    Start-Process -filepath 'c:\temp\npp.7.8.8.Installer.x64.exe' -Wait -ErrorAction Stop -ArgumentList '/S'
+    Start-Process -filepath 'c:\temp\notepad++.exe' -Wait -ErrorAction Stop -ArgumentList '/S'
     Copy-Item 'C:\temp\config.model.xml' 'C:\Program Files\Notepad++'
     Rename-Item 'C:\Program Files\Notepad++\updater' 'C:\Program Files\Notepad++\updaterOld'
     if (Test-Path "C:\Program Files\Notepad++\notepad++.exe") {
